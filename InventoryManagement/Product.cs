@@ -69,7 +69,6 @@ namespace InventoryManagement
             Name = name;
             Description = description;
             UnitType = unitType;
-
             MaxItemsInStock = maxAmountInStock;
 
             UpdateLowStock();
