@@ -14,6 +14,10 @@ namespace InventoryManagement.ProductManagement
         private string name = string.Empty;
         private string? description;
 
+        // Static Feild
+        
+        public static int StockThreshold = 5;
+
         // Properties
 
         private int MaxItemsInStock { get; set; }
@@ -57,17 +61,7 @@ namespace InventoryManagement.ProductManagement
 
         public Price Price { get; set; }
 
-        // Constructors
-
-        public Product(int id) : this(id, string.Empty)
-        {
-        }
-
-        public Product(int id, string name)
-        {
-            Id = id;
-            Name = name;
-        }
+        // Constructor
 
         public Product(int id, string name, string? description, Price price, UnitType unitType, int maxAmountInStock)
         {
@@ -80,6 +74,16 @@ namespace InventoryManagement.ProductManagement
 
             UpdateLowStock();
         }
+
+        // Static Method
+
+        public static void ChangeStockThreshold(int newStockThreshold)
+        {
+            if (newStockThreshold > 0)
+            {
+                StockThreshold = newStockThreshold; 
+            }
+        } 
 
         // Methods
 
@@ -169,11 +173,11 @@ namespace InventoryManagement.ProductManagement
 
         private void UpdateLowStock()
         {
-            if (AmountInStock < 10)
+            if (AmountInStock < StockThreshold)
             {
                 IsBelowStockThreshold = true;
             }
-            else if (AmountInStock >= 10)
+            else if (AmountInStock >= StockThreshold)
             {
                 IsBelowStockThreshold = false;
             }

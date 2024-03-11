@@ -19,5 +19,13 @@ namespace InventoryManagement.ProductManagement
         {
             return $"{ItemPrice} {Currency}";
         }
+
+        // Constructor
+
+        public Price(double price, Currency currency)
+        {
+            ItemPrice = price;
+            Currency = currency;
+        }
     }
 }

@@ -27,5 +27,15 @@ namespace InventoryManagement.OrderManagement
         {
             return $"Product ID: {ProductId} - Name: {ProductName} - Amount ordered: {AmountOrdered}";
         }
+
+        // Constructor
+
+        public OrderItem(int productId, string productName, int amountOrdered)
+        {
+            Id = new Random().Next(9999999);
+            ProductId = productId ;
+            ProductName = productName ;
+            AmountOrdered = amountOrdered ;
+        }
     }
 }
