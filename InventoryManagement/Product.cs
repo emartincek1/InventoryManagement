@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,19 +17,72 @@ namespace InventoryManagement
         private int amountInStock = 0;
         private bool isBelowStockThreshold = false;
 
-        public void Use()
+        public void UseProduct(int items)
         {
-            amountInStock--;
-        }
+            if (items <= amountInStock)
+            {
+                amountInStock -= items;
 
-        public void DisplayDetails()
-        {
-            Console.WriteLine(this.description);
-        }
+                UpdateLowStock();
 
+                Console.WriteLine($"Amount in stock updated. Now {amountInStock} items in stock.");
+            }
+            else
+            {
+                Console.WriteLine($"Not enough items in stock for {CreateSimpleProductRepresentation()}. {amountInStock} available but {items} requested.");
+            }
+        }
+            
         public void IncreaseStock()
         {
             amountInStock++;
         }
+
+        private void DecreaseStock(int items, string reason)
+        {
+            if (items <= amountInStock)
+            {
+                amountInStock -= items;
+            }
+            else
+            {
+                amountInStock = 0;
+            }
+
+            UpdateLowStock();
+
+            Console.WriteLine(reason);
+        }
+
+        public string DisplayDetailsShort()
+        {
+            return $"{id} {name} \n{amountInStock} item(s) in stock";
+        }
+
+        public string DisplayDetailsFull()
+        {
+            StringBuilder sb = new();
+
+            sb.Append($"{id} {name} \n{description}\n{amountInStock} item(s) in stock");
+
+            if ( isBelowStockThreshold )
+            {
+                sb.Append("\n!!StOCK LOW!!");
+            }
+
+            return sb.ToString();  
+        }
+
+        private void UpdateLowStock()
+        {
+            if (amountInStock < 10)
+            {
+                isBelowStockThreshold = true;
+            }
+        }
+
+        private string CreateSimpleProductRepresentation()
+        {
+            return $"Product {id} ({name})";
     }
 }
