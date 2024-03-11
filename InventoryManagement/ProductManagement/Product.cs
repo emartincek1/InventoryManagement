@@ -5,7 +5,7 @@ using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace InventoryManagement
+namespace InventoryManagement.ProductManagement
 {
     public class Product
     {
@@ -16,9 +16,9 @@ namespace InventoryManagement
 
         // Properties
 
-        private int MaxItemsInStock {  get; set; }
+        private int MaxItemsInStock { get; set; }
 
-        public int Id { get; set; } 
+        public int Id { get; set; }
 
         public string Name
         {
@@ -51,6 +51,8 @@ namespace InventoryManagement
 
         public bool IsBelowStockThreshold { get; private set; }
 
+        public Price Price { get; set; }
+
         // Constructors
 
         public Product(int id) : this(id, string.Empty)
@@ -63,12 +65,13 @@ namespace InventoryManagement
             Name = name;
         }
 
-        public Product(int id, string name, string? description, UnitType unitType, int maxAmountInStock)
+        public Product(int id, string name, string? description, Price price, UnitType unitType, int maxAmountInStock)
         {
             Id = id;
             Name = name;
             Description = description;
             UnitType = unitType;
+            Price = price;
             MaxItemsInStock = maxAmountInStock;
 
             UpdateLowStock();
@@ -148,7 +151,7 @@ namespace InventoryManagement
         {
             StringBuilder sb = new();
 
-            sb.Append($"{Id} {Name} \n{Description}\n{AmountInStock} item(s) in stock");
+            sb.Append($"{Id} {Name} \n{Description}\n{Price}\n{AmountInStock} item(s) in stock");
 
             sb.Append(extraDetails);
 
@@ -170,7 +173,7 @@ namespace InventoryManagement
             {
                 IsBelowStockThreshold = false;
             }
-     
+
         }
 
         private string CreateSimpleProductRepresentation()

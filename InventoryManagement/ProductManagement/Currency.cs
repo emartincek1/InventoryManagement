@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace InventoryManagement
+namespace InventoryManagement.ProductManagement
 {
-    public enum UnitType
+    public enum Currency
     {
-        PerItem,
-        PerBox,
-        PerKg
+        Dollar,
+        Euro,
+        Pound
     }
 }
