@@ -9,20 +9,16 @@ namespace InventoryManagement
 {
     public class Product
     {
-        private int id;
+        // Feilds
+
         private string name = string.Empty;
         private string? description;
-        private int maxItemsInStock = 0;
 
+        // Properties
 
-        public int Id
-        {
-            get { return id; }
-            set
-            {
-                id = value;
-            }
-        }
+        private int MaxItemsInStock {  get; set; }
+
+        public int Id { get; set; } 
 
         public string Name
         {
@@ -55,10 +51,31 @@ namespace InventoryManagement
 
         public bool IsBelowStockThreshold { get; private set; }
 
-        public Product()
-        {
+        // Constructors
 
+        public Product(int id) : this(id, string.Empty)
+        {
         }
+
+        public Product(int id, string name)
+        {
+            Id = id;
+            Name = name;
+        }
+
+        public Product(int id, string name, string? description, UnitType unitType, int maxAmountInStock)
+        {
+            Id = id;
+            Name = name;
+            Description = description;
+            UnitType = unitType;
+
+            MaxItemsInStock = maxAmountInStock;
+
+            UpdateLowStock();
+        }
+
+        // Methods
 
         public void UseProduct(int items)
         {
@@ -76,9 +93,28 @@ namespace InventoryManagement
             }
         }
 
+        // IncreaseStock Overload
+
         public void IncreaseStock()
         {
             AmountInStock++;
+        }
+
+        public void IncreaseStock(int amount)
+        {
+            int newStock = AmountInStock + amount;
+
+            if (newStock <= MaxItemsInStock)
+            {
+                AmountInStock += amount;
+            }
+            else
+            {
+                AmountInStock = MaxItemsInStock;
+                Console.WriteLine($"{CreateSimpleProductRepresentation()} stock overflow. {newStock - AmountInStock} item(s) ordered that couldn't be stored.");
+            }
+
+            UpdateLowStock();
         }
 
         private void DecreaseStock(int items, string reason)
@@ -102,11 +138,20 @@ namespace InventoryManagement
             return $"{Id} {Name} \n{AmountInStock} item(s) in stock";
         }
 
+        // DisplayDetailsFull Overload
+
         public string DisplayDetailsFull()
+        {
+            return DisplayDetailsFull("");
+        }
+
+        public string DisplayDetailsFull(string extraDetails)
         {
             StringBuilder sb = new();
 
             sb.Append($"{Id} {Name} \n{Description}\n{AmountInStock} item(s) in stock");
+
+            sb.Append(extraDetails);
 
             if (IsBelowStockThreshold)
             {
@@ -122,6 +167,11 @@ namespace InventoryManagement
             {
                 IsBelowStockThreshold = true;
             }
+            else if (AmountInStock >= 10)
+            {
+                IsBelowStockThreshold = false;
+            }
+     
         }
 
         private string CreateSimpleProductRepresentation()
