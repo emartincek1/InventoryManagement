@@ -33,5 +33,26 @@ namespace InventoryManagement.OrderManagement
 
             OrderItems = new List<OrderItem>();
         }
+
+        // Methods
+
+        public string ShowOrderDetails()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine($"Order ID: {Id}");
+            sb.AppendLine($"Order fulfilment date: {OrderFulfilmentDate.ToShortTimeString()}");
+            
+            // For each OrderItem in OrderItem list add its details to Order details
+
+            if (OrderItems != null)
+            {
+                foreach ( OrderItem item in OrderItems )
+                {
+                    sb.AppendLine($"{item.ProductId}. {item.ProductName}: {item.AmountOrdered}");  
+                }
+            }
+
+            return sb.ToString();
+        }
     }
 }

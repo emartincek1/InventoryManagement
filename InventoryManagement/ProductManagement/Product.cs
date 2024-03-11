@@ -171,7 +171,7 @@ namespace InventoryManagement.ProductManagement
             return sb.ToString();
         }
 
-        private void UpdateLowStock()
+        public void UpdateLowStock()
         {
             if (AmountInStock < StockThreshold)
             {
