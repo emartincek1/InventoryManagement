@@ -25,6 +25,8 @@ namespace InventoryManagement.ProductManagement
             get { return name; }
             set
             {
+                // Slice name if longer than 50 characters
+
                 name = value.Length > 50 ? value[..50] : value;
             }
         }
@@ -40,6 +42,8 @@ namespace InventoryManagement.ProductManagement
                 }
                 else
                 {
+                    // Slice description if longer than 250 characters
+
                     description = value.Length > 250 ? value[..250] : value;
                 }
             }

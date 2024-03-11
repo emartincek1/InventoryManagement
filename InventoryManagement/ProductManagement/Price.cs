@@ -8,8 +8,12 @@ namespace InventoryManagement.ProductManagement
 {
     public class Price
     {
+        // Properties
+
         public double ItemPrice { get; set; }
         public Currency Currency { get; set; }
+
+        // Override ToString Method
 
         public override string ToString()
         {
