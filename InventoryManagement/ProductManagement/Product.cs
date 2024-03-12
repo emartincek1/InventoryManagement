@@ -107,7 +107,7 @@ namespace InventoryManagement.ProductManagement
 
         public void IncreaseStock()
         {
-            AmountInStock++;
+            IncreaseStock(1);
         }
 
         public void IncreaseStock(int amount)
