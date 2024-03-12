@@ -34,7 +34,6 @@ namespace InventoryManagement
             Console.WriteLine("1: Inventory management");
             Console.WriteLine("2: Order management");
             Console.WriteLine("3: Settings");
-            Console.WriteLine("4: Save all data");
             Console.WriteLine("0: Close application");
 
             Console.Write("Your Selection: ");
@@ -50,9 +49,6 @@ namespace InventoryManagement
                     break;
                 case "3":
                     ShowSettingsMenu();
-                    break;
-                case "4":
-                    // SaveAllData();
                     break;
                 case "0":
                     break;
@@ -354,5 +350,6 @@ namespace InventoryManagement
 
             Console.ReadLine();
         }
+
     }
 }

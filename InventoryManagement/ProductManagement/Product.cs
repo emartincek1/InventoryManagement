@@ -127,7 +127,7 @@ namespace InventoryManagement.ProductManagement
             UpdateLowStock();
         }
 
-        private void DecreaseStock(int items, string reason)
+        public void DecreaseStock(int items, string reason)
         {
             if (items <= AmountInStock)
             {
@@ -165,7 +165,7 @@ namespace InventoryManagement.ProductManagement
 
             if (IsBelowStockThreshold)
             {
-                sb.Append("\n!!StOCK LOW!!");
+                sb.Append("\n!!STOCK LOW!!");
             }
 
             return sb.ToString();
