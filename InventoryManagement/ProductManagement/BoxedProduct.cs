@@ -15,13 +15,15 @@ namespace InventoryManagement.ProductManagement
             AmountPerBox = amountPerBox;
         }
 
-        public string DisplayBoxedProductDetails()
+        public override string DisplayDetailsFull(string extraDetails)
         {
             StringBuilder sb = new StringBuilder();
 
             sb.Append("Boxed Product\n");
 
-            sb.Append($"{Id} {Name} \n{Description}\n{Price}\n{AmountInStock} item(s) in stock");
+            sb.Append($"{Id} {Name} \n{Description}\n{Price}\n{AmountInStock} box(s) in stock. {AmountPerBox} item(s) per box.");
+
+            sb.Append(extraDetails);
 
             if (IsBelowStockThreshold)
             {
@@ -31,7 +33,7 @@ namespace InventoryManagement.ProductManagement
             return sb.ToString();
         }
 
-        public void UseBoxedProduct(int items)
+        public override void UseProduct(int items) 
         {
             int smallestMultiple = 0;
             int batchSize;
@@ -41,12 +43,12 @@ namespace InventoryManagement.ProductManagement
                 smallestMultiple++;
                 if (smallestMultiple * AmountPerBox > items)
                 {
-                    batchSize = smallestMultiple * AmountPerBox;
+                    batchSize = smallestMultiple;
                     break;
                 }
             }
 
-            UseProduct(batchSize);
+            base.UseProduct(batchSize);
         }
     }
 }

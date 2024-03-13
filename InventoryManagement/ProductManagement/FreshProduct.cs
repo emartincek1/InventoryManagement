@@ -16,5 +16,24 @@ namespace InventoryManagement.ProductManagement
             ExpirationDate = expirationDate;
             StorageInstructions = storageInstructions;
         }
+
+        public override string DisplayDetailsFull(string extraDetails)
+        {
+            StringBuilder sb = new();
+
+            sb.Append($"{Id} {Name} \n{Description}\n{Price}\n{AmountInStock} item(s) in stock");
+
+            sb.Append(extraDetails);
+
+            if (IsBelowStockThreshold)
+            {
+                sb.Append("\n!!STOCK LOW!!");
+            }
+
+            sb.AppendLine($"Storage instructions: {StorageInstructions}");
+            sb.AppendLine($"Exipration date: {ExpirationDate.ToShortDateString()}");
+
+            return sb.ToString();
+        }
     }
 }

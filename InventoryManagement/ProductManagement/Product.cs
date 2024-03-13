@@ -87,7 +87,7 @@ namespace InventoryManagement.ProductManagement
 
         // Methods
 
-        public void UseProduct(int items)
+        public virtual void UseProduct(int items)
         {
             if (items <= AmountInStock)
             {
@@ -155,7 +155,7 @@ namespace InventoryManagement.ProductManagement
             return DisplayDetailsFull("");
         }
 
-        public string DisplayDetailsFull(string extraDetails)
+        public virtual string DisplayDetailsFull(string extraDetails)
         {
             StringBuilder sb = new();
 
