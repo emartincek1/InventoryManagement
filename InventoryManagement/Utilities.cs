@@ -22,7 +22,7 @@ namespace InventoryManagement
             inventory.Add(p1);
             inventory.Add(p2);
             inventory.Add(p3);
-        }
+        } 
 
         internal static void ShowMainMenu()
         {
