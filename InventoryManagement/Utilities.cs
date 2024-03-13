@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 
 namespace InventoryManagement
 {
@@ -90,7 +91,7 @@ namespace InventoryManagement
                         ShowDetailsAndUseProduct();
                         break;
                     case "2":
-                        // ShowCreateNewProduct();
+                        ShowCreateNewProduct();
                         break;
                     case "3":
                         // ShowCloneExistingProduct();
@@ -349,6 +350,95 @@ namespace InventoryManagement
             }
 
             Console.ReadLine();
+        }
+
+        private static void ShowAllUnitTypes()
+        {
+            int i = 1;
+            foreach(string name in Enum.GetNames(typeof(UnitType)))
+            {
+                Console.WriteLine($"{i}. {name}");
+                i++;
+            }
+        }
+
+        private static void ShowAllCurrencies()
+        {
+            int i = 1;
+            foreach (string name in Enum.GetNames(typeof(Currency)))
+            {
+                Console.WriteLine($"{i}. {name}");
+                i++;
+            }
+        }
+
+
+        private static void ShowCreateNewProduct()
+        {
+            UnitType unitType = UnitType.PerItem;
+
+            Console.WriteLine("What type of product do you want to create?");
+            Console.WriteLine("1. Regular product\n2. Fresh product\n3. Boxed product");
+            Console.Write("Your selection: ");
+
+            var productType = Console.ReadLine();
+            if (productType != "1" && productType != "2" && productType != "3")
+            {
+                Console.WriteLine("Invalid selection!");
+                return;
+            }
+
+            Product? newProduct = null;
+
+            Console.Write("Enter the name of the product: ");
+            string name = Console.ReadLine() ?? string.Empty;
+
+            Console.Write("Enter the price of the product: ");
+            double price = double.Parse(Console.ReadLine() ?? "0.0");
+
+            ShowAllCurrencies();
+            Console.Write("Select the currency: ");
+            Currency currency = (Currency)Enum.Parse(typeof(Currency), Console.ReadLine() ?? "1");
+
+            Console.WriteLine("Enter the description of the product: ");
+            string description = Console.ReadLine() ?? string.Empty;
+
+            if (productType != "3")
+            {
+                ShowAllUnitTypes();
+                Console.Write("Select the unit type: ");
+                unitType = (UnitType)Enum.Parse(typeof(UnitType), Console.ReadLine() ?? "1");
+            }
+
+            Console.Write("Enter the maximun number of units in stock for this product: ");
+            int maxInStock = int.Parse(Console.ReadLine() ?? "0");
+
+            int newId = inventory.Max(p => p.Id) + 1;
+
+            switch (productType)
+            {
+                case "1":
+                    newProduct = new Product(newId, name, description, new Price(price, currency), unitType, maxInStock);
+                    break;
+                case "2":
+                    Console.Write("Days until expiration: ");
+                    int numOfDays = int.Parse(Console.ReadLine() ?? "0");
+                    DateTime ExpDate = DateTime.Now.AddDays(numOfDays);
+                    Console.Write("Storage Instructions: ");
+                    string storageInstructions = Console.ReadLine() ?? string.Empty;
+
+                    newProduct = new FreshProduct(newId, name, description, new Price(price, currency), unitType, maxInStock, ExpDate, storageInstructions);
+                    break;
+                case "3":
+                    Console.Write("Enter the number of items per box: ");
+                    int numberInBox = int.Parse(Console.ReadLine() ?? "0");
+
+                    newProduct = new BoxedProduct(newId, name, description, new Price(price, currency), maxInStock, numberInBox);
+                    break;
+            }
+
+            if (newProduct != null)
+                inventory.Add(newProduct);
         }
 
     }

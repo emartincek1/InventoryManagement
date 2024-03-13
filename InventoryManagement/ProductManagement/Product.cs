@@ -145,7 +145,7 @@ namespace InventoryManagement.ProductManagement
 
         public string DisplayDetailsShort()
         {
-            return $"{Id} {Name} \n{AmountInStock} item(s) in stock";
+            return $"{Id} {Name} \n{AmountInStock} {UnitType}(s) in stock";
         }
 
         // DisplayDetailsFull Overload
@@ -159,7 +159,7 @@ namespace InventoryManagement.ProductManagement
         {
             StringBuilder sb = new();
 
-            sb.Append($"{Id} {Name} \n{Description}\n{Price}\n{AmountInStock} item(s) in stock");
+            sb.Append($"{Id} {Name} \n{Description}\n{Price}\n{AmountInStock} {UnitType}(s) in stock");
 
             sb.Append(extraDetails);
 

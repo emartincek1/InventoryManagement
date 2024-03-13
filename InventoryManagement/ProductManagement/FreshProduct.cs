@@ -21,7 +21,7 @@ namespace InventoryManagement.ProductManagement
         {
             StringBuilder sb = new();
 
-            sb.Append($"{Id} {Name} \n{Description}\n{Price}\n{AmountInStock} item(s) in stock");
+            sb.Append($"{Id} {Name} \n{Description}\n{Price}\n{AmountInStock} {UnitType}(s) in stock");
 
             sb.Append(extraDetails);
 
@@ -30,7 +30,7 @@ namespace InventoryManagement.ProductManagement
                 sb.Append("\n!!STOCK LOW!!");
             }
 
-            sb.AppendLine($"Storage instructions: {StorageInstructions}");
+            sb.AppendLine($"\nStorage instructions: {StorageInstructions}");
             sb.AppendLine($"Exipration date: {ExpirationDate.ToShortDateString()}");
 
             return sb.ToString();
