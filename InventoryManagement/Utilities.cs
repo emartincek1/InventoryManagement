@@ -77,7 +77,6 @@ namespace InventoryManagement
 
                 Console.WriteLine("1: View details of product");
                 Console.WriteLine("2: Add new product");
-                Console.WriteLine("3: Clone product");
                 Console.WriteLine("4: View products with low stock");
                 Console.WriteLine("0: Back to main menu");
 
@@ -94,9 +93,6 @@ namespace InventoryManagement
                         ShowCreateNewProduct();
                         break;
                     case "3":
-                        // ShowCloneExistingProduct();
-                        break;
-                    case "4":
                         ShowProductsLowOnStock();
                         break;
                     default:
